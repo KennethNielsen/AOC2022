@@ -2,10 +2,19 @@
 // Code to solve the advent of code task for Dec 1
 
 use std::fs;
+use std::env;
 
 
 fn main() {
-    let content = fs::read_to_string("input").expect("No input file in this dir");
+    let args: Vec<String> = env::args().collect();
+    if args.len() != 2 {
+        println!("This program takes the puzzle input file as a parameter");
+        return
+    }
+    let input_file = &args[1];
+    println!("Input: {}", input_file);
+
+    let content = fs::read_to_string(input_file).expect("No input file in this dir");
 
     let mut elves: Vec<i32> = Vec::new();
     // SKip elf 0, since the assignment is counting from 1

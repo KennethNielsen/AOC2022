@@ -1,6 +1,7 @@
 
 use std::fs::File;
 use std::io::{BufReader, BufRead};
+use std::env;
 
 
 fn decrypt_1<'a>(opponent: &'a str, me: &'a str) -> (&'a str, &'a str){
@@ -81,9 +82,17 @@ fn calculate_shape<'a>(opponent: &'a str, desired_result: &'a str) -> &'a str {
 
 
 fn main() {
+    let args: Vec<String> = env::args().collect();
+    if args.len() != 2 {
+        println!("This program takes the puzzle input file as a parameter");
+        return
+    }
+    let input_file = &args[1];
+    println!("Input: {}", input_file);
+
     {  // Scope to ensure that files are closed
         // Open a buffered reader on the puzzle input
-        let f = File::open("puzzle_input.txt").unwrap();
+        let f = File::open(input_file).unwrap();
         let buffered_reader = BufReader::new(f);
 
         // Loop over lines in that file and calc score
@@ -109,7 +118,7 @@ fn main() {
 
 {  // Scope to ensure that files are closed
         // Open a buffered reader on the puzzle input
-        let f = File::open("puzzle_input.txt").unwrap();
+        let f = File::open(input_file).unwrap();
         let buffered_reader = BufReader::new(f);
 
         // Loop over lines in that file and calc score
